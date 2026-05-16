@@ -1,0 +1,8 @@
+{
+  "name": "NeonFocus",
+  "description": "An advanced Cyber-Neon Pomodoro & Task Management application with integrated analytics and lo-fi soundscapes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

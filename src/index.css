@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-neon-purple: #A855F7;
+  --color-neon-pink: #EC4899;
+  --color-neon-bg: #0B0B0F;
+  --color-neon-card: #121214;
+  --color-neon-border: rgba(168, 85, 247, 0.2);
+  
+  --shadow-glow-purple: 0 0 15px rgba(168, 85, 247, 0.4);
+  --shadow-glow-pink: 0 0 15px rgba(236, 72, 153, 0.4);
+}
+
+@layer base {
+  body {
+    @apply bg-neon-bg text-white font-sans antialiased;
+  }
+}
+
+.neon-border-purple {
+  @apply border border-neon-purple/30 shadow-[0_0_10px_rgba(168,85,247,0.2)];
+}
+
+.neon-border-pink {
+  @apply border border-neon-pink/30 shadow-[0_0_10px_rgba(236,72,153,0.2)];
+}
+
+.neon-text-purple {
+  @apply text-neon-purple drop-shadow-[0_0_8px_rgba(168,85,247,0.5)];
+}
+
+.neon-text-pink {
+  @apply text-neon-pink drop-shadow-[0_0_8px_rgba(236,72,153,0.5)];
+}
