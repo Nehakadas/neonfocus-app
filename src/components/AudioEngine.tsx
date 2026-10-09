@@ -11,40 +11,48 @@ const SOUNDSCAPES = [
   { id: 'lofi', name: 'Lo-Fi Beats', icon: Radio, url: '/lofi-beat.mp3', color: '#A855F7' },
   { id: 'white', name: 'White Noise', icon: Moon, url: '/white-noise.mp3', color: '#94A3B8' }
 ];
+
 export function AudioEngine({ isActive }: AudioEngineProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [volume, setVolume] = useState(0.4);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
-      audioRef.current.loop = true;
+  useEffect(() => {
+    // 1. Stop and clear any current playing instance
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current = null;
     }
 
+    // 2. Instantiate new Audio object for selected track
     if (selectedId && !isMuted) {
       const sound = SOUNDSCAPES.find(s => s.id === selectedId);
       if (sound) {
-        // Stop any currently playing track before playing the new one
-        audioRef.current.pause();
-        audioRef.current.src = sound.url;
-        audioRef.current.volume = volume;
-        audioRef.current.play().catch(e => console.error("Audio playback error", e));
+        const newAudio = new Audio(sound.url);
+        newAudio.loop = true;
+        newAudio.volume = volume;
+        newAudio.play().catch(e => console.error("Audio playback error", e));
+        audioRef.current = newAudio;
       }
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
     }
 
+    // 3. Clean up audio when component updates or unmounts
     return () => {
-      audioRef.current?.pause();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
     };
-  }, [selectedId, isMuted, volume]);
-    return () => {
-      audioRef.current?.pause();
-    };
-  }, [selectedId, isActive, isMuted, volume]);
+  }, [selectedId, isMuted]);
+
+  // Dynamically sync volume slider
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
 
   return (
     <div className="flex flex-col gap-4 bg-neon-card p-6 rounded-3xl border border-white/5">
@@ -80,7 +88,7 @@ useEffect(() => {
             )}>
               {sound.name}
             </span>
-            {selectedId === sound.id && isActive && (
+            {selectedId === sound.id && !isMuted && (
               <div className="ml-auto flex gap-0.5 items-end h-3">
                 <div className="w-1 bg-neon-purple animate-bounce" style={{ animationDuration: '0.8s' }} />
                 <div className="w-1 bg-neon-purple animate-bounce" style={{ animationDuration: '1.2s' }} />
