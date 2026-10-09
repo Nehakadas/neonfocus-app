@@ -8,8 +8,8 @@ interface AudioEngineProps {
 
 const SOUNDSCAPES = [
   { id: 'rain', name: 'Rainfall', icon: CloudRain, url: '/rain.mp3', color: '#60A5FA' },
-  { id: 'lofi', name: 'Lo-Fi Beats', icon: Radio, url: '/lofi.mp3', color: '#A855F7' },
-  { id: 'white', name: 'White Noise', icon: Moon, url: '/white.mp3', color: '#94A3B8' }
+  { id: 'lofi', name: 'Lo-Fi Beats', icon: Radio, url: '/lofi-beat.mp3', color: '#A855F7' },
+  { id: 'white', name: 'White Noise', icon: Moon, url: '/white-noise.mp3', color: '#94A3B8' }
 ];
 export function AudioEngine({ isActive }: AudioEngineProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
