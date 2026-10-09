@@ -41,8 +41,7 @@ export default function App() {
 
   // Initialize Chime
   useEffect(() => {
-    chimeRef.current = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-  }, []);
+chimeRef.current = new Audio('/rain.mp3');  }, []);
 
   // Update timeLeft when settings change (if timer not running)
   useEffect(() => {
