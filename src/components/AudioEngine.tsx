@@ -23,7 +23,7 @@ export function AudioEngine({ isActive }: AudioEngineProps) {
       audioRef.current.loop = true;
     }
 
-    if (selectedId && isActive && !isMuted) {
+    if (selectedId && !isMuted) {
       const sound = SOUNDSCAPES.find(s => s.id === selectedId);
       if (sound) {
         audioRef.current.src = sound.url;
