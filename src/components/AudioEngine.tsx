@@ -7,11 +7,10 @@ interface AudioEngineProps {
 }
 
 const SOUNDSCAPES = [
-  { id: 'rain', name: 'Rainfall', icon: CloudRain, url: 'https://assets.mixkit.co/active_storage/sfx/2418/2418-preview.mp3', color: '#60A5FA' },
-  { id: 'lofi', name: 'Lo-Fi Beats', icon: Radio, url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', color: '#A855F7' },
-  { id: 'white', name: 'White Noise', icon: Moon, url: 'https://assets.mixkit.co/active_storage/sfx/2419/2419-preview.mp3', color: '#94A3B8' }
+  { id: 'rain', name: 'Rainfall', icon: CloudRain, url: '/rain.mp3', color: '#60A5FA' },
+  { id: 'lofi', name: 'Lo-Fi Beats', icon: Radio, url: '/lofi.mp3', color: '#A855F7' },
+  { id: 'white', name: 'White Noise', icon: Moon, url: '/white.mp3', color: '#94A3B8' }
 ];
-
 export function AudioEngine({ isActive }: AudioEngineProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [volume, setVolume] = useState(0.4);
