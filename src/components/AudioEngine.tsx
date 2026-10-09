@@ -17,7 +17,7 @@ export function AudioEngine({ isActive }: AudioEngineProps) {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
+useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio();
       audioRef.current.loop = true;
@@ -26,14 +26,21 @@ export function AudioEngine({ isActive }: AudioEngineProps) {
     if (selectedId && !isMuted) {
       const sound = SOUNDSCAPES.find(s => s.id === selectedId);
       if (sound) {
+        // Stop any currently playing track before playing the new one
+        audioRef.current.pause();
         audioRef.current.src = sound.url;
         audioRef.current.volume = volume;
         audioRef.current.play().catch(e => console.error("Audio playback error", e));
       }
     } else {
       audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
 
+    return () => {
+      audioRef.current?.pause();
+    };
+  }, [selectedId, isMuted, volume]);
     return () => {
       audioRef.current?.pause();
     };
